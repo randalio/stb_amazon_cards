@@ -79,6 +79,8 @@
                 const [isLoading, setIsLoading] = useState(false);
                 const [error, setError] = useState('');
                 const [fetchTimeout, setFetchTimeout] = useState(null);
+
+                const orientationClass = attributes.orientation ? 'vertical' : 'horizontal' ;
                 
                 const blockProps = useBlockProps({
                     className: 'amazon-product-block-editor'
@@ -279,7 +281,7 @@
                             wp.element.createElement('p', {}, 'Fetching product data...')
                         ),
                         hasProductData && wp.element.createElement('div', { className: 'amazon-product-preview' },
-                            wp.element.createElement('div', { className: 'amazon-product-card' },
+                            wp.element.createElement('div', { className: 'amazon-product-card orientation-'+orientationClass+'' },
                                 productData.image && wp.element.createElement('div', { className: 'amazon-product-image' },
                                     wp.element.createElement('img', {
                                         src: productData.image,
