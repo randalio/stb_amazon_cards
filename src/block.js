@@ -51,6 +51,10 @@
                     type: 'string',
                     default: ''
                 },
+                alternateTitle: {
+                    type: 'string',
+                    default: ''
+                },
                 productData: {
                     type: 'object',
                     default: {}
@@ -67,7 +71,7 @@
 
             edit: function(props) {
                 const { attributes, setAttributes } = props;
-                const { productUrl, productData, autoFetch, lastFetched } = attributes;
+                const { productUrl, alternateTitle, productData, autoFetch, lastFetched } = attributes;
                 const [isLoading, setIsLoading] = useState(false);
                 const [error, setError] = useState('');
                 const [fetchTimeout, setFetchTimeout] = useState(null);
@@ -219,6 +223,13 @@
                                 placeholder: 'https://www.amazon.com/dp/ASIN',
                                 help: 'Enter the full Amazon product URL. Data will fetch automatically.'
                             }),
+                            wp.element.createElement(TextControl, {
+                                label: 'Alternate Title',
+                                value: alternateTitle,
+                                onChange: (value) => setAttributes({ alternateTitle: value }),
+                                placeholder: '',
+                                help: 'Replace the default Amazon title with custom text.'
+                            }),
                             wp.element.createElement(ToggleControl, {
                                 label: 'Auto-fetch product data',
                                 checked: autoFetch,
@@ -266,7 +277,7 @@
                                     })
                                 ),
                                 wp.element.createElement('div', { className: 'amazon-product-content' },
-                                    productData.title && wp.element.createElement('h3', { className: 'amazon-product-title' }, productData.title),
+                                    productData.title && wp.element.createElement('h3', { className: 'amazon-product-title' }, alternateTitle !== '' ? alternateTitle : productData.title),
                                     productData.price && wp.element.createElement('div', { className: 'amazon-product-price' }, productData.price),
                                     wp.element.createElement('div', { className: 'amazon-product-button' }, 'Buy Now on Amazon')
                                 )

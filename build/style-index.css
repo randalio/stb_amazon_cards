@@ -12,6 +12,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.2s ease;
   max-width: 600px;
+  height: 100%;
 }
 .amazon-product-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
@@ -76,6 +77,7 @@
   letter-spacing: 1.2px;
   font-size: 1rem;
   text-transform: uppercase;
+  min-width: 100%;
 }
 .amazon-product-button:hover {
   background: #C68966;

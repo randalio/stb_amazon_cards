@@ -140,6 +140,7 @@ class AmazonProductBlock {
         $title = $product_data['title'] ?? '';
         $price = $product_data['price'] ?? '';
         $url = $attributes['productUrl'] ?? '';
+        $altTitle = $attributes['alternateTitle'] ?? '';
         
         ob_start();
         ?>
@@ -151,8 +152,10 @@ class AmazonProductBlock {
             <?php endif; ?>
             
             <div class="amazon-product-content">
-                <?php if ($title): ?>
+                <?php if (!$altTitle): ?>
                     <h3 class="amazon-product-title"><?php echo esc_html($title); ?></h3>
+                <?php elseif( $title): ?>
+                    <h3 class="amazon-product-title"><?php echo esc_html($altTitle); ?></h3>
                 <?php endif; ?>
                 
                 <?php if ($price): ?>
