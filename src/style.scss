@@ -1,11 +1,13 @@
+
+$btn-brown: #a57355;
+$btn-brown-hover: #C68966;
+
 /* Frontend product card styles */
 .amazon-product-card {
     display: flex;
-    gap: 20px;
     background: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 20px;
     margin: 20px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: box-shadow 0.2s ease;
@@ -18,13 +20,19 @@
 
 .amazon-product-image {
     flex-shrink: 0;
-    width: 150px;
+    min-width: 200px;
+    aspect-ratio: 1;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid #e0e0e0;
 
     img {
         width: 100%;
         height: auto;
         border-radius: 4px;
-        object-fit: cover;
+        object-fit: contain;
         max-height: 200px;
     }
 }
@@ -35,6 +43,7 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 150px;
+    padding:2rem;
 }
 
 .amazon-product-title {
@@ -42,25 +51,27 @@
     font-size: 18px;
     font-weight: 600;
     line-height: 1.3;
-    color: #0066cc;
+    color: #2D3749;
     text-decoration: none;
+    font-family: 'Libre Baskerville', serif;
 
-    &:hover {
-        text-decoration: underline;
-    }
+    // &:hover {
+    //     text-decoration: underline;
+    // }
 }
 
 .amazon-product-price {
     font-size: 20px;
     font-weight: 700;
-    color: #b12704;
+    color: #D49B26;
     margin-bottom: 16px;
+    font-family: Mulish, sans-serif;
 }
 
 .amazon-product-button {
-    background: #ff9900;
+    background: $btn-brown;
     color: white !important;
-    padding: 12px 24px;
+    padding: 1rem 2rem;
     border-radius: 4px;
     text-align: center;
     font-weight: 600;
@@ -70,11 +81,13 @@
     transition: all 0.2s ease;
     border: none;
     cursor: pointer;
-    font-family: inherit;
-    font-size: 14px;
+    font-family: Mulish, sans-serif;
+    letter-spacing: 1.2px;
+    font-size: 1rem;
+    text-transform: uppercase;
 
     &:hover {
-        background: #e68a00;
+        background: $btn-brown-hover;
         transform: translateY(-1px);
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }

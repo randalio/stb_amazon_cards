@@ -1,1 +1,504 @@
-(()=>{var e,t={113:()=>{!function(){if("undefined"==typeof wp||!wp.blocks)return void console.error("Amazon Product Block: WordPress blocks not available");const{registerBlockType:e}=wp.blocks,{InspectorControls:t,useBlockProps:o}=wp.blockEditor||{},{PanelBody:a,TextControl:r,Button:n,Spinner:c,Notice:l,ToggleControl:s}=wp.components||{},{useState:d,useEffect:i}=wp.element||{};if(!(e&&t&&o&&a&&r&&n&&d&&i))return void console.error("Amazon Product Block: Required WordPress components not available");console.log("Amazon Product Block: All dependencies loaded, registering block...");const m=e=>!!e&&(/amazon\.(com|co\.uk|de|fr|it|es|ca|com\.au|co\.jp|in|com\.br|com\.mx)\/.*\/dp\/[A-Z0-9]{10}/i.test(e)||/amzn\.to\/[A-Za-z0-9]+/i.test(e)||e.includes("/dp/")||e.includes("/gp/product/"));try{e("amazon-product/block",{title:"Amazon Product",description:"Display an Amazon product with image, title, price, and buy button",category:"embed",icon:"cart",supports:{html:!1},attributes:{productUrl:{type:"string",default:""},productData:{type:"object",default:{}},autoFetch:{type:"boolean",default:!0},lastFetched:{type:"number",default:0}},edit:function(e){const{attributes:u,setAttributes:p}=e,{productUrl:w,productData:f,autoFetch:h,lastFetched:g}=u,[b,v]=d(!1),[z,k]=d(""),[y,P]=d(null),E=o({className:"amazon-product-block-editor"}),A=async(e=w,t=!1)=>{if(console.log("fetchProductData called with URL:",e),e)if(m(e)){if(!window.amazonProductBlock)return console.error("amazonProductBlock not found on window object"),void(t||k("Amazon Product Block not properly initialized. Please check your API settings."));console.log("amazonProductBlock object:",window.amazonProductBlock),t||v(!0),k("");try{const o=new FormData;o.append("action","fetch_amazon_product"),o.append("productUrl",e),o.append("nonce",window.amazonProductBlock.nonce),console.log("Sending request to:",window.amazonProductBlock.ajaxUrl);const a=await fetch(window.amazonProductBlock.ajaxUrl,{method:"POST",body:o});if(console.log("Response status:",a.status),!a.ok)throw new Error(`HTTP error! status: ${a.status}`);const r=await a.json();if(console.log("Response result:",r),r.success){console.log("Product data received:",r.data);const e={...r.data,fetchedAt:Date.now()};p({productData:e,lastFetched:Date.now()}),k(""),console.log("Product data set successfully:",e)}else{const e=r.data||"Failed to fetch product data";console.error("Server returned error:",e),t||k(e),t||p({productData:{}})}}catch(e){console.error("Fetch error details:",e),t||k(`Network error: ${e.message}`),t||p({productData:{}})}finally{t||v(!1)}}else t||k("Please enter a valid Amazon product URL");else t||k("Please enter a product URL")};i((()=>{if(y&&clearTimeout(y),w&&h&&m(w)){const e=setTimeout((()=>{A(w,!0)}),1e3);P(e)}return()=>{y&&clearTimeout(y)}}),[w,h]),i((()=>{if(!h||!w||!e.isSelected)return;const t=setInterval((()=>{Date.now()-g>3e5&&(console.log("Auto-refreshing product data..."),A(w,!0))}),6e4);return()=>clearInterval(t)}),[w,h,g,e.isSelected]);const B=f&&Object.keys(f).length>0,D=B&&f.fetchedAt?Math.floor((Date.now()-f.fetchedAt)/6e4):0;return wp.element.createElement("div",E,wp.element.createElement(t,{},wp.element.createElement(a,{title:"Product Settings"},wp.element.createElement(r,{label:"Amazon Product URL",value:w,onChange:e=>{p({productUrl:e}),e||(p({productData:{}}),k(""))},placeholder:"https://www.amazon.com/dp/ASIN",help:"Enter the full Amazon product URL. Data will fetch automatically."}),wp.element.createElement(s,{label:"Auto-fetch product data",checked:h,onChange:e=>p({autoFetch:e}),help:"Automatically fetch product data when URL changes and refresh periodically"}),wp.element.createElement("div",{style:{marginTop:"15px"}},wp.element.createElement(n,{isPrimary:!0,onClick:()=>{A(w,!1)},disabled:!w||b,style:{marginRight:"10px"}},b?"Refreshing...":"Refresh Data"),B&&D>0&&wp.element.createElement("small",{style:{display:"block",marginTop:"5px",color:D>60?"#d94f4f":"#666",fontStyle:"italic"}},`Data is ${D} minute${1!==D?"s":""} old`)))),wp.element.createElement("div",{className:"amazon-product-block-placeholder"},z&&wp.element.createElement(l,{status:"error",isDismissible:!1},z),!B&&!b&&wp.element.createElement("div",{className:"amazon-product-empty-state"},wp.element.createElement("div",{className:"amazon-product-icon"},"🛒"),wp.element.createElement("h3",{},"Amazon Product Block"),wp.element.createElement("p",{},h?"Enter an Amazon product URL above and data will be fetched automatically.":'Enter an Amazon product URL in the block settings and click "Refresh Data".')),b&&wp.element.createElement("div",{className:"amazon-product-loading"},wp.element.createElement(c),wp.element.createElement("p",{},"Fetching product data...")),B&&wp.element.createElement("div",{className:"amazon-product-preview"},wp.element.createElement("div",{className:"amazon-product-card"},f.image&&wp.element.createElement("div",{className:"amazon-product-image"},wp.element.createElement("img",{src:f.image,alt:f.title||"Product Image"})),wp.element.createElement("div",{className:"amazon-product-content"},f.title&&wp.element.createElement("h3",{className:"amazon-product-title"},f.title),f.price&&wp.element.createElement("div",{className:"amazon-product-price"},f.price),wp.element.createElement("div",{className:"amazon-product-button"},"Buy Now on Amazon"))))))},save:function(){return null}}),console.log("Amazon Product Block: Block registered successfully")}catch(e){console.error("Amazon Product Block: Registration failed:",e)}}()},980:(e,t,o)=>{"use strict";o(113)}},o={};function a(e){var r=o[e];if(void 0!==r)return r.exports;var n=o[e]={exports:{}};return t[e](n,n.exports,a),n.exports}a.m=t,e=[],a.O=(t,o,r,n)=>{if(!o){var c=1/0;for(i=0;i<e.length;i++){for(var[o,r,n]=e[i],l=!0,s=0;s<o.length;s++)(!1&n||c>=n)&&Object.keys(a.O).every((e=>a.O[e](o[s])))?o.splice(s--,1):(l=!1,n<c&&(c=n));if(l){e.splice(i--,1);var d=r();void 0!==d&&(t=d)}}return t}n=n||0;for(var i=e.length;i>0&&e[i-1][2]>n;i--)e[i]=e[i-1];e[i]=[o,r,n]},a.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return a.d(t,{a:t}),t},a.d=(e,t)=>{for(var o in t)a.o(t,o)&&!a.o(e,o)&&Object.defineProperty(e,o,{enumerable:!0,get:t[o]})},a.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{var e={57:0,350:0};a.O.j=t=>0===e[t];var t=(t,o)=>{var r,n,[c,l,s]=o,d=0;if(c.some((t=>0!==e[t]))){for(r in l)a.o(l,r)&&(a.m[r]=l[r]);if(s)var i=s(a)}for(t&&t(o);d<c.length;d++)n=c[d],a.o(e,n)&&e[n]&&e[n][0](),e[n]=0;return a.O(i)},o=globalThis.webpackChunkamazon_product_block=globalThis.webpackChunkamazon_product_block||[];o.forEach(t.bind(null,0)),o.push=t.bind(null,o.push.bind(o))})();var r=a.O(void 0,[350],(()=>a(980)));r=a.O(r)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/block.js":
+/*!**********************!*\
+  !*** ./src/block.js ***!
+  \**********************/
+/***/ (() => {
+
+// Use window.wp to ensure dependencies are loaded
+(function () {
+  // Check if wp is available
+  if (typeof wp === 'undefined' || !wp.blocks) {
+    console.error('Amazon Product Block: WordPress blocks not available');
+    return;
+  }
+  const {
+    registerBlockType
+  } = wp.blocks;
+  const {
+    InspectorControls,
+    useBlockProps
+  } = wp.blockEditor || {};
+  const {
+    PanelBody,
+    TextControl,
+    Button,
+    Spinner,
+    Notice,
+    ToggleControl
+  } = wp.components || {};
+  const {
+    useState,
+    useEffect
+  } = wp.element || {};
+
+  // Check if all required components are available
+  if (!registerBlockType || !InspectorControls || !useBlockProps || !PanelBody || !TextControl || !Button || !useState || !useEffect) {
+    console.error('Amazon Product Block: Required WordPress components not available');
+    return;
+  }
+  console.log('Amazon Product Block: All dependencies loaded, registering block...');
+
+  // Helper function to detect if URL is a valid Amazon product URL
+  const isValidAmazonUrl = url => {
+    if (!url) return false;
+    const amazonRegex = /amazon\.(com|co\.uk|de|fr|it|es|ca|com\.au|co\.jp|in|com\.br|com\.mx)\/.*\/dp\/[A-Z0-9]{10}/i;
+    const amazonShortRegex = /amzn\.to\/[A-Za-z0-9]+/i;
+    return amazonRegex.test(url) || amazonShortRegex.test(url) || url.includes('/dp/') || url.includes('/gp/product/');
+  };
+  try {
+    registerBlockType('amazon-product/block', {
+      title: 'Amazon Product',
+      description: 'Display an Amazon product with image, title, price, and buy button',
+      category: 'embed',
+      icon: 'cart',
+      supports: {
+        html: false
+      },
+      attributes: {
+        productUrl: {
+          type: 'string',
+          default: ''
+        },
+        productData: {
+          type: 'object',
+          default: {}
+        },
+        autoFetch: {
+          type: 'boolean',
+          default: true
+        },
+        lastFetched: {
+          type: 'number',
+          default: 0
+        }
+      },
+      edit: function (props) {
+        const {
+          attributes,
+          setAttributes
+        } = props;
+        const {
+          productUrl,
+          productData,
+          autoFetch,
+          lastFetched
+        } = attributes;
+        const [isLoading, setIsLoading] = useState(false);
+        const [error, setError] = useState('');
+        const [fetchTimeout, setFetchTimeout] = useState(null);
+        const blockProps = useBlockProps({
+          className: 'amazon-product-block-editor'
+        });
+
+        // Fetch product data function
+        const fetchProductData = async (url = productUrl, silent = false) => {
+          console.log('fetchProductData called with URL:', url);
+          if (!url) {
+            if (!silent) setError('Please enter a product URL');
+            return;
+          }
+          if (!isValidAmazonUrl(url)) {
+            if (!silent) setError('Please enter a valid Amazon product URL');
+            return;
+          }
+          if (!window.amazonProductBlock) {
+            console.error('amazonProductBlock not found on window object');
+            if (!silent) setError('Amazon Product Block not properly initialized. Please check your API settings.');
+            return;
+          }
+          console.log('amazonProductBlock object:', window.amazonProductBlock);
+          if (!silent) setIsLoading(true);
+          setError('');
+          try {
+            const formData = new FormData();
+            formData.append('action', 'fetch_amazon_product');
+            formData.append('productUrl', url);
+            formData.append('nonce', window.amazonProductBlock.nonce);
+            console.log('Sending request to:', window.amazonProductBlock.ajaxUrl);
+            const response = await fetch(window.amazonProductBlock.ajaxUrl, {
+              method: 'POST',
+              body: formData
+            });
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log('Response result:', result);
+            if (result.success) {
+              console.log('Product data received:', result.data);
+
+              // Add timestamp to track when data was last fetched
+              const updatedData = {
+                ...result.data,
+                fetchedAt: Date.now()
+              };
+              setAttributes({
+                productData: updatedData,
+                lastFetched: Date.now()
+              });
+              setError('');
+              console.log('Product data set successfully:', updatedData);
+            } else {
+              const errorMessage = result.data || 'Failed to fetch product data';
+              console.error('Server returned error:', errorMessage);
+              if (!silent) setError(errorMessage);
+              // Don't clear existing data on silent refresh failures
+              if (!silent) setAttributes({
+                productData: {}
+              });
+            }
+          } catch (err) {
+            console.error('Fetch error details:', err);
+            if (!silent) setError(`Network error: ${err.message}`);
+            // Don't clear existing data on silent refresh failures
+            if (!silent) setAttributes({
+              productData: {}
+            });
+          } finally {
+            if (!silent) setIsLoading(false);
+          }
+        };
+
+        // Auto-fetch when URL changes
+        useEffect(() => {
+          if (fetchTimeout) {
+            clearTimeout(fetchTimeout);
+          }
+          if (productUrl && autoFetch && isValidAmazonUrl(productUrl)) {
+            // Debounce the fetch to avoid too many requests while typing
+            const timeout = setTimeout(() => {
+              fetchProductData(productUrl, true);
+            }, 1000);
+            setFetchTimeout(timeout);
+          }
+          return () => {
+            if (fetchTimeout) {
+              clearTimeout(fetchTimeout);
+            }
+          };
+        }, [productUrl, autoFetch]);
+
+        // Auto-refresh data periodically (every 5 minutes if block is selected)
+        useEffect(() => {
+          if (!autoFetch || !productUrl || !props.isSelected) return;
+          const interval = setInterval(() => {
+            const now = Date.now();
+            const fiveMinutes = 5 * 60 * 1000;
+            if (now - lastFetched > fiveMinutes) {
+              console.log('Auto-refreshing product data...');
+              fetchProductData(productUrl, true);
+            }
+          }, 60000); // Check every minute
+
+          return () => clearInterval(interval);
+        }, [productUrl, autoFetch, lastFetched, props.isSelected]);
+        const onUrlChange = newUrl => {
+          setAttributes({
+            productUrl: newUrl
+          });
+          if (!newUrl) {
+            setAttributes({
+              productData: {}
+            });
+            setError('');
+          }
+        };
+        const manualRefresh = () => {
+          fetchProductData(productUrl, false);
+        };
+        const hasProductData = productData && Object.keys(productData).length > 0;
+        const dataAge = hasProductData && productData.fetchedAt ? Math.floor((Date.now() - productData.fetchedAt) / (1000 * 60)) : 0;
+        return wp.element.createElement('div', blockProps, wp.element.createElement(InspectorControls, {}, wp.element.createElement(PanelBody, {
+          title: 'Product Settings'
+        }, wp.element.createElement(TextControl, {
+          label: 'Amazon Product URL',
+          value: productUrl,
+          onChange: onUrlChange,
+          placeholder: 'https://www.amazon.com/dp/ASIN',
+          help: 'Enter the full Amazon product URL. Data will fetch automatically.'
+        }), wp.element.createElement(ToggleControl, {
+          label: 'Auto-fetch product data',
+          checked: autoFetch,
+          onChange: value => setAttributes({
+            autoFetch: value
+          }),
+          help: 'Automatically fetch product data when URL changes and refresh periodically'
+        }), wp.element.createElement('div', {
+          style: {
+            marginTop: '15px'
+          }
+        }, wp.element.createElement(Button, {
+          isPrimary: true,
+          onClick: manualRefresh,
+          disabled: !productUrl || isLoading,
+          style: {
+            marginRight: '10px'
+          }
+        }, isLoading ? 'Refreshing...' : 'Refresh Data'), hasProductData && dataAge > 0 && wp.element.createElement('small', {
+          style: {
+            display: 'block',
+            marginTop: '5px',
+            color: dataAge > 60 ? '#d94f4f' : '#666',
+            fontStyle: 'italic'
+          }
+        }, `Data is ${dataAge} minute${dataAge !== 1 ? 's' : ''} old`)))), wp.element.createElement('div', {
+          className: 'amazon-product-block-placeholder'
+        }, error && wp.element.createElement(Notice, {
+          status: 'error',
+          isDismissible: false
+        }, error), !hasProductData && !isLoading && wp.element.createElement('div', {
+          className: 'amazon-product-empty-state'
+        }, wp.element.createElement('div', {
+          className: 'amazon-product-icon'
+        }, '🛒'), wp.element.createElement('h3', {}, 'Amazon Product Block'), wp.element.createElement('p', {}, autoFetch ? 'Enter an Amazon product URL above and data will be fetched automatically.' : 'Enter an Amazon product URL in the block settings and click "Refresh Data".')), isLoading && wp.element.createElement('div', {
+          className: 'amazon-product-loading'
+        }, wp.element.createElement(Spinner), wp.element.createElement('p', {}, 'Fetching product data...')), hasProductData && wp.element.createElement('div', {
+          className: 'amazon-product-preview'
+        }, wp.element.createElement('div', {
+          className: 'amazon-product-card'
+        }, productData.image && wp.element.createElement('div', {
+          className: 'amazon-product-image'
+        }, wp.element.createElement('img', {
+          src: productData.image,
+          alt: productData.title || 'Product Image'
+        })), wp.element.createElement('div', {
+          className: 'amazon-product-content'
+        }, productData.title && wp.element.createElement('h3', {
+          className: 'amazon-product-title'
+        }, productData.title), productData.price && wp.element.createElement('div', {
+          className: 'amazon-product-price'
+        }, productData.price), wp.element.createElement('div', {
+          className: 'amazon-product-button'
+        }, 'Buy Now on Amazon'))))));
+      },
+      save: function () {
+        // Server-side rendering with fresh data fetch
+        return null;
+      }
+    });
+    console.log('Amazon Product Block: Block registered successfully');
+  } catch (error) {
+    console.error('Amazon Product Block: Registration failed:', error);
+  }
+})();
+
+/***/ }),
+
+/***/ "./src/editor.scss":
+/*!*************************!*\
+  !*** ./src/editor.scss ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _block_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./block.js */ "./src/block.js");
+/* harmony import */ var _block_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_block_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+// Import the main block registration
+
+
+// Import styles - WordPress build process will handle these
+
+
+
+/***/ }),
+
+/***/ "./src/style.scss":
+/*!************************!*\
+  !*** ./src/style.scss ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"index": 0,
+/******/ 			"./style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunkamazon_product_block"] = globalThis["webpackChunkamazon_product_block"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

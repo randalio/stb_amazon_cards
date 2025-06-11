@@ -159,8 +159,8 @@ class AmazonProductBlock {
                     <div class="amazon-product-price"><?php echo esc_html($price); ?></div>
                 <?php endif; ?>
                 
-                <?php if ($url): ?>
-                    <a href="<?php echo esc_url($url); ?>" class="amazon-product-button" target="_blank" rel="nofollow noopener">
+                <?php if ($url):  $partner_tag = get_option('amazon_product_partner_tag'); ?>
+                    <a href="<?php echo esc_url($url) .'&tag='.$partner_tag; ?>" class="amazon-product-button" target="_blank" rel="nofollow noopener">
                         Buy Now on Amazon
                     </a>
                 <?php endif; ?>
