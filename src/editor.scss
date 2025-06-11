@@ -1,0 +1,126 @@
+/* Editor-specific styles */
+.amazon-product-block-editor {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.amazon-product-block-placeholder {
+    min-height: 200px;
+}
+
+.amazon-product-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+
+    .amazon-product-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+
+    h3 {
+        margin: 0 0 12px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e1e1e;
+    }
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
+
+.amazon-product-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+
+    .components-spinner {
+        margin-bottom: 16px;
+    }
+}
+
+.amazon-product-preview {
+    background: #f9f9f9;
+    border-radius: 4px;
+    padding: 20px;
+
+    .amazon-product-card {
+        display: flex;
+        gap: 20px;
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        max-width: 600px;
+    }
+
+    .amazon-product-image {
+        flex-shrink: 0;
+        width: 150px;
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    }
+
+    .amazon-product-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .amazon-product-title {
+        margin: 0 0 12px 0;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.3;
+        color: #0066cc;
+    }
+
+    .amazon-product-price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #b12704;
+        margin-bottom: 16px;
+    }
+
+    .amazon-product-button {
+        background: #ff9900;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 4px;
+        text-align: center;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: inline-block;
+        align-self: flex-start;
+
+        &:hover {
+            background: #e68a00;
+        }
+    }
+}
+
+/* Responsive adjustments for editor */
+@media (max-width: 600px) {
+    .amazon-product-preview .amazon-product-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .amazon-product-preview .amazon-product-image {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+}
