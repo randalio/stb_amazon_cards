@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Amazon Product Block
  * Description: A Gutenberg block that displays Amazon product information using the Product API
- * Version: 1.0.0
+ * Version: 1.1
  * Author: Your Name
  */
 
