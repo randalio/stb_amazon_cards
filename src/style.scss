@@ -12,11 +12,20 @@ $btn-brown-hover: #C68966;
     margin: 20px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     transition: box-shadow 0.2s ease;
-    max-width: 600px;
+    //max-width: 600px;
     flex-grow: 1;
 
     &:hover {
         box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    &.orientation-horizontal{
+        flex-direction: row;
+
+        & .amazon-product-image{
+            border-bottom: unset;
+            border-right: 1px solid #e0e0e0;
+        }
     }
 }
 
@@ -56,6 +65,7 @@ $btn-brown-hover: #C68966;
     color: #2D3749;
     text-decoration: none;
     font-family: 'Libre Baskerville', serif;
+    margin-bottom: auto !important;
 
 }
 

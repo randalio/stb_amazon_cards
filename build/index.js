@@ -74,6 +74,10 @@
           type: 'boolean',
           default: true
         },
+        orientation: {
+          type: 'boolean',
+          default: true
+        },
         lastFetched: {
           type: 'number',
           default: 0
@@ -89,6 +93,7 @@
           alternateTitle,
           productData,
           autoFetch,
+          orientation,
           lastFetched
         } = attributes;
         const [isLoading, setIsLoading] = useState(false);
@@ -240,6 +245,13 @@
             autoFetch: value
           }),
           help: 'Automatically fetch product data when URL changes and refresh periodically'
+        }), wp.element.createElement(ToggleControl, {
+          label: 'Horizontal/ Vertical',
+          checked: orientation,
+          onChange: value => setAttributes({
+            orientation: value
+          }),
+          help: 'Choose the orientation of the product display.'
         }), wp.element.createElement('div', {
           style: {
             marginTop: '15px'

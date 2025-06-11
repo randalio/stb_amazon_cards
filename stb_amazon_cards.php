@@ -141,10 +141,20 @@ class AmazonProductBlock {
         $price = $product_data['price'] ?? '';
         $url = $attributes['productUrl'] ?? '';
         $altTitle = $attributes['alternateTitle'] ?? '';
+        $orientation = $attributes['orientation'] ?? 'horizontal';
+        // if orientation is not set, default to horizontal
+        if (!in_array($orientation, array('horizontal', 'vertical'))) {
+            $orientation = 'horizontal';
+        }else{
+            $orientation = 'vertical';
+        }
+        
+
+        //print_r( $attributes );
         
         ob_start();
         ?>
-        <div class="amazon-product-card">
+        <div class="amazon-product-card orientation-<?php echo $orientation; ?>">
             <?php if ($image): ?>
                 <div class="amazon-product-image">
                     <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($title); ?>" />

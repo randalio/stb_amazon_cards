@@ -11,11 +11,17 @@
   margin: 20px 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.2s ease;
-  max-width: 600px;
   flex-grow: 1;
 }
 .amazon-product-card:hover {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.amazon-product-card.orientation-horizontal {
+  flex-direction: row;
+}
+.amazon-product-card.orientation-horizontal .amazon-product-image {
+  border-bottom: unset;
+  border-right: 1px solid #e0e0e0;
 }
 
 .amazon-product-image {
@@ -51,6 +57,7 @@
   color: #2D3749;
   text-decoration: none;
   font-family: "Libre Baskerville", serif;
+  margin-bottom: auto !important;
 }
 
 .amazon-product-price {
