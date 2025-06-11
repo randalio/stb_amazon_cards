@@ -24,6 +24,7 @@
   const {
     PanelBody,
     TextControl,
+    TextareaControl,
     Button,
     Spinner,
     Notice,
@@ -66,6 +67,10 @@
           type: 'string',
           default: ''
         },
+        additionalText: {
+          type: 'string',
+          default: ''
+        },
         productData: {
           type: 'object',
           default: {}
@@ -91,6 +96,7 @@
         const {
           productUrl,
           alternateTitle,
+          additionalText,
           productData,
           autoFetch,
           orientation,
@@ -239,6 +245,14 @@
           }),
           placeholder: '',
           help: 'Replace the default Amazon title with custom text.'
+        }), wp.element.createElement(TextareaControl, {
+          label: 'Additional Text',
+          value: additionalText,
+          onChange: value => setAttributes({
+            additionalText: value
+          }),
+          placeholder: '',
+          help: 'Additional paragraph text (optional).'
         }), wp.element.createElement(ToggleControl, {
           label: 'Auto-fetch product data',
           checked: autoFetch,
@@ -295,7 +309,9 @@
           className: 'amazon-product-content'
         }, productData.title && wp.element.createElement('h3', {
           className: 'amazon-product-title'
-        }, alternateTitle !== '' ? alternateTitle : productData.title), productData.price && wp.element.createElement('div', {
+        }, alternateTitle !== '' ? alternateTitle : productData.title), wp.element.createElement('p', {
+          className: 'amazon-product-description'
+        }, additionalText), productData.price && wp.element.createElement('div', {
           className: 'amazon-product-price'
         }, productData.price), wp.element.createElement('div', {
           className: 'amazon-product-button'

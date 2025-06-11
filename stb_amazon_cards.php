@@ -141,6 +141,7 @@ class AmazonProductBlock {
         $price = $product_data['price'] ?? '';
         $url = $attributes['productUrl'] ?? '';
         $altTitle = $attributes['alternateTitle'] ?? '';
+        $addText = $attributes['additionalText'] ?? '';
         $orientation = $attributes['orientation'] ?? 'horizontal';
         // if orientation is not set, default to horizontal
         if (!in_array($orientation, array('horizontal', 'vertical'))) {
@@ -166,6 +167,10 @@ class AmazonProductBlock {
                     <h3 class="amazon-product-title"><?php echo esc_html($title); ?></h3>
                 <?php elseif( $title): ?>
                     <h3 class="amazon-product-title"><?php echo esc_html($altTitle); ?></h3>
+                <?php endif; ?>
+
+                <?php if( $addText): ?>
+                    <p class="amazon-product-additional-text"><?php echo esc_html($addText); ?></p>
                 <?php endif; ?>
                 
                 <?php if ($price): ?>

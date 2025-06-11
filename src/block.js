@@ -14,6 +14,7 @@
     const { 
         PanelBody, 
         TextControl, 
+        TextareaControl,
         Button, 
         Spinner, 
         Notice,
@@ -55,6 +56,10 @@
                     type: 'string',
                     default: ''
                 },
+                additionalText: {
+                    type: 'string',
+                    default: ''
+                },
                 productData: {
                     type: 'object',
                     default: {}
@@ -75,7 +80,7 @@
 
             edit: function(props) {
                 const { attributes, setAttributes } = props;
-                const { productUrl, alternateTitle, productData, autoFetch, orientation, lastFetched } = attributes;
+                const { productUrl, alternateTitle, additionalText, productData, autoFetch, orientation, lastFetched } = attributes;
                 const [isLoading, setIsLoading] = useState(false);
                 const [error, setError] = useState('');
                 const [fetchTimeout, setFetchTimeout] = useState(null);
@@ -236,6 +241,13 @@
                                 placeholder: '',
                                 help: 'Replace the default Amazon title with custom text.'
                             }),
+                            wp.element.createElement(TextareaControl, {
+                                label: 'Additional Text',
+                                value: additionalText,
+                                onChange: (value) => setAttributes({ additionalText: value }),
+                                placeholder: '',
+                                help: 'Additional paragraph text (optional).'
+                            }),
                             wp.element.createElement(ToggleControl, {
                                 label: 'Auto-fetch product data',
                                 checked: autoFetch,
@@ -290,6 +302,7 @@
                                 ),
                                 wp.element.createElement('div', { className: 'amazon-product-content' },
                                     productData.title && wp.element.createElement('h3', { className: 'amazon-product-title' }, alternateTitle !== '' ? alternateTitle : productData.title),
+                                    wp.element.createElement('p', { className: 'amazon-product-description' }, additionalText ),
                                     productData.price && wp.element.createElement('div', { className: 'amazon-product-price' }, productData.price),
                                     wp.element.createElement('div', { className: 'amazon-product-button' }, 'Buy Now on Amazon')
                                 )
