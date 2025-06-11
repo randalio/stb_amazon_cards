@@ -5,8 +5,7 @@
 .amazon-product-block-editor {
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 20px;
-  margin: 10px 0;
+  margin: 0;
 }
 
 .amazon-product-block-placeholder {
@@ -66,14 +65,17 @@
 }
 .amazon-product-preview .amazon-product-image {
   flex-shrink: 0;
-  width: 150px;
+  aspect-ratio: 1;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
 }
 .amazon-product-preview .amazon-product-image img {
-  width: 100%;
-  height: auto;
   border-radius: 4px;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .amazon-product-preview .amazon-product-content {
   flex: 1;
@@ -105,6 +107,8 @@
   transition: background 0.2s;
   display: inline-block;
   align-self: flex-start;
+  min-width: unset;
+  align-self: stretch;
 }
 .amazon-product-preview .amazon-product-button:hover {
   background: #a57355;

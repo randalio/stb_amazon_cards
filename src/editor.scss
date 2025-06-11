@@ -5,8 +5,8 @@ $btn-brown-hover: #C68966;
 .amazon-product-block-editor {
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 20px;
-    margin: 10px 0;
+    // padding: 20px;
+    margin: 0;
 }
 
 .amazon-product-block-placeholder {
@@ -75,13 +75,16 @@ $btn-brown-hover: #C68966;
 
     .amazon-product-image {
         flex-shrink: 0;
-        width: 150px;
+        aspect-ratio: 1;
+        padding: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0;
 
         img {
-            width: 100%;
-            height: auto;
             border-radius: 4px;
-            object-fit: cover;
+            object-fit: contain;
         }
     }
 
@@ -118,6 +121,8 @@ $btn-brown-hover: #C68966;
         transition: background 0.2s;
         display: inline-block;
         align-self: flex-start;
+        min-width: unset;
+        align-self: stretch;
 
         &:hover {
             background: $btn-brown;
