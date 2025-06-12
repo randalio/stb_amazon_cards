@@ -206,22 +206,3 @@ $btn-brown-hover: #C68966;
         font-size: 13px;
     }
 }
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .amazon-product-card {
-        background: #2d2d2d;
-        border-color: #444;
-        color: #ffffff;
-    }
-    
-    .amazon-product-title {
-        color: #66b3ff;
-    }
-    
-    .amazon-product-error {
-        background: #5d2a2a;
-        color: #ffb3b3;
-        border-color: #7a3e3e;
-    }
-}
